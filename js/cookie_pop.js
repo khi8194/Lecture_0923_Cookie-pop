@@ -8,7 +8,25 @@
   응용예 : 사용자가 우리가 개발한 웹 페이지 방문시 각 사용자가 좋아하는 색상을 선택하게 한 뒤,
   해당 정보값을 사용자 컴퓨터에 쿠키로 저장
   앞으로 해당 사용자가 웹페이지 접속할 때마다 사용자 브라우저 쿠키에 저장된 값으로 웹페이지 스타일 테마 변경
-  
+
   쿠키 : name=value 형식으로 저장, 쿠키 생성시 쿠키의 만료일을 설정가능
   쿠키확인 : document.cookie
 */
+
+const [btnView, btnSet] = document.querySelectorAll("button");
+btnView.addEventListener("click", () => {
+	console.log(document.cookie);
+});
+btnSet.addEventListener("click", () => {
+	setCookie("today", "done", 5);
+});
+//쿠키 생성 함수
+function setCookie(name, value, sec) {
+	let now = new Date();
+	//현재 분값을 가져와서 인수로 전달된 분 시간정보를 더함
+	let duedate = now.getSeconds() + sec;
+	//바뀐 시간 정보값으로 시간객체정보를 변경
+	now.setSeconds(duedate);
+	//변경된 시간 정보값을 표준시로 변경해서 쿠키만료시간으로 설정
+	document.cookie = `${name}=${value}; path=/; expires=${now.toUTCString()}`;
+}
