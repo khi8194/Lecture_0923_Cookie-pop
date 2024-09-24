@@ -1,2 +1,48 @@
 @import "reset";
+//sass --watch D:\workspace\웹프로그래밍\0923_Cookie-pop\scss\style.scss:D:\workspace\웹프로그래밍\0923_Cookie-pop\css\style.css
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+
+//팝업 : 윈도우 기본 제공하는 시스템 팝업
+//모달 : div형태로 만들어놓은 레이어 모달
+
+nav {
+  margin: 100px;
+
+  button {
+    border: none;
+    background-color: gray;
+    padding: 15px 40px;
+    font: bold 1rem/1 'orbitron';
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+aside {
+  width: 600px;
+  padding: 50px;
+  background-image: linear-gradient(45deg, violet, hotpink);
+  margin: 100px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 20px rgba(238, 130, 238,0.3);
+
+  .con {
+    min-height: 100px;
+  }
+  .controls {
+    display: flex;
+    justify-content: space-between;
+
+    label {
+      font: 0.6rem/1 'orbitron';
+      color: white; 
+      position: relative;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+  }
+}

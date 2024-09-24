@@ -16,16 +16,20 @@
 // 	document.cookie = `${name}=${value}; path=/; expires=${now.toUTCString()}`;
 // }
 
-const [btnView, btnSet] = document.querySelectorAll("button");
+// const [btnView, btnSet] = document.querySelectorAll("button");
+const [btnView, btnSet, btnDel] = document.querySelectorAll("button");
 
 btnView.addEventListener("click", () => {
 	console.log(document.cookie);
 });
 
 btnSet.addEventListener("click", () => {
-	//today=done이라는 이름으로 쿠키 생성함과 동시에 만료시간을 1분을 지정하여
-	//쿠키가 생성된 시점부터 1분까지만 유지되고 1분뒤에는 자동으로 쿠키 제거됨
-	setCookie("today", "done", 10);
+	// setCookie("today", "done", 10);
+	setCookie("today", "done", 1);
+});
+btnDel.addEventListener("click", () => {
+	setCookie("today", "done", 0);
+	alert("쿠키 삭제");
 });
 
 /*
@@ -42,12 +46,15 @@ function setCookie(name, value, min) {
 }
 */
 
-function setCookie(name, value, sec) {
+// function setCookie(name, value, sec) {
+function setCookie(name, value, min) {
 	let now = new Date();
 	//아래와 같이 getTime으로 현재 시간값을 가져와서 초단위로 값을 변경하면, 잘못된 날짜 정보로 만료일 설정을 예방
-	let duedate = now.getTime() + sec * 1000;
+	let duedate = now.getTime() + min * 1000 * 60;
+	// let duedate = now.getTime() + sec * 1000;
 	//쿠키값은 화면 새로고침되어야지만 갱신된값이 반영
 	now.setTime(duedate);
 	document.cookie = `${name}=${value}; path=/; expires=${now.toUTCString()}`;
-	alert("쿠키 생성");
+	// alert("쿠키 생성");
+	min == 0 ? alert("쿠키 삭제") : alert("쿠키 생성");
 }
