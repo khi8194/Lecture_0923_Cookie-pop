@@ -27,7 +27,10 @@ btnDel.addEventListener("click", () => {
 
 //닫기 버튼 클릭시 모달 안보이게 처리
 btnClose.addEventListener("click", () => {
+	//닫기 버튼 클릭시 체크박스가 체크되어 있으면 쿠키 생성
 	modal.style.display = "none";
+	//체크를 하고 닫기하면 checked가 true가 됨
+	console.dir(ck);
 });
 
 //쿠키생성함수
