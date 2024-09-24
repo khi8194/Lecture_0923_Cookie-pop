@@ -1,60 +1,40 @@
-// const [btnView, btnSet] = document.querySelectorAll("button");
-// btnView.addEventListener("click", () => {
-// 	console.log(document.cookie);
-// });
-// btnSet.addEventListener("click", () => {
-// 	setCookie("today", "done", 5);
-// });
-// //쿠키 생성 함수
-// function setCookie(name, value, sec) {
-// 	let now = new Date();
-// 	//현재 분값을 가져와서 인수로 전달된 분 시간정보를 더함
-// 	let duedate = now.getSeconds() + sec;
-// 	//바뀐 시간 정보값으로 시간객체정보를 변경
-// 	now.setSeconds(duedate);
-// 	//변경된 시간 정보값을 표준시로 변경해서 쿠키만료시간으로 설정
-// 	document.cookie = `${name}=${value}; path=/; expires=${now.toUTCString()}`;
-// }
+/*
+문자열.indexOF('찾을 문자열'): 전체 문자열에서 찾을 문자열이 위치해있는 순서값 반환,
+만약 전체문자열에서 찾을 문자열이 없으면 -1을 반환
 
-// const [btnView, btnSet] = document.querySelectorAll("button");
+1. 모달의 닫기 버튼 클릭시 모달 안보이게 하기
+2. 체크박스 선택한 뒤 닫기 버튼 클릭시 모달 안보이게 함과 동시에 today=done쿠키를 하루만료기한 생성
+3. 스크립트가 처음 로딩될 때 조건문으로 today=done이라는 쿠키가 있으면 팝업 안보이게 처리, 없으면 보이게 처리
+*/
+
 const [btnView, btnSet, btnDel] = document.querySelectorAll("button");
+const modal = document.querySelector("aside");
+const btnClose = modal.querySelector("button");
+const ck = modal.querySelector("#ck");
 
 btnView.addEventListener("click", () => {
 	console.log(document.cookie);
 });
 
 btnSet.addEventListener("click", () => {
-	// setCookie("today", "done", 10);
 	setCookie("today", "done", 1);
 });
+
 btnDel.addEventListener("click", () => {
 	setCookie("today", "done", 0);
 	alert("쿠키 삭제");
 });
 
-/*
-//쿠키 생성 함수
-function setCookie(name, value, min) {
-	let now = new Date();
-	//현재 분값을 가져와서 인수로 전달된 분 시간정보를 더함
-	let duedate = now.getMinutes() + min;
-	//바뀐 시간 정보값으로 시간객체정보를 변경
-	now.setMinutes(duedate);
-	//변경된 시간 정보값을 표준시로 변경해서 쿠키만료시간으로 설정
-	document.cookie = `${name}=${value}; path=/; expires=${now.toUTCString()}`;
-	alert("쿠키 생성");
-}
-*/
+//닫기 버튼 클릭시 모달 안보이게 처리
+btnClose.addEventListener("click", () => {
+	modal.style.display = "none";
+});
 
-// function setCookie(name, value, sec) {
-function setCookie(name, value, min) {
+//쿠키생성함수
+function setCookie(name, value, day) {
 	let now = new Date();
-	//아래와 같이 getTime으로 현재 시간값을 가져와서 초단위로 값을 변경하면, 잘못된 날짜 정보로 만료일 설정을 예방
-	let duedate = now.getTime() + min * 1000 * 60;
-	// let duedate = now.getTime() + sec * 1000;
-	//쿠키값은 화면 새로고침되어야지만 갱신된값이 반영
+	let duedate = now.getTime() + day * 1000 * 60 * 60 * 24; //1s X 60 (1m) X 60 (1h) X 24 (24H=1Day)
+
 	now.setTime(duedate);
 	document.cookie = `${name}=${value}; path=/; expires=${now.toUTCString()}`;
-	// alert("쿠키 생성");
-	min == 0 ? alert("쿠키 삭제") : alert("쿠키 생성");
 }
